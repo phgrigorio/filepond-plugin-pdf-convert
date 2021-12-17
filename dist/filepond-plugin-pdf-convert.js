@@ -31,11 +31,7 @@
       const ctx = canvas.getContext('2d');
       canvas.width = width;
       canvas.height = height;
-
-      for (let i = 0; i < pages.length; i++) {
-        ctx.putImageData(pages[i], 0, heights[i]);
-      }
-
+      ctx.putImageData(pages[0], 0, heights[0]);
       return canvas;
     }
 
