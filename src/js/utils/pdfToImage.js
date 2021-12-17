@@ -52,20 +52,19 @@ export const pdfToImage = (file, type, marginHeight) => {
           height += canvas.height;
           if (width < canvas.width) width = canvas.width;
 
-          if (currentPage < pdf.numPages) {
-            currentPage++;
-            height += marginHeight;
-            getPage();
-          } else {
-            const canvas = mergePages();
-            const blobBin = atob(canvas.toDataURL(type).split(",")[1]);
-            const array = [];
-            for (let i = 0; i < blobBin.length; i++) {
-              array.push(blobBin.charCodeAt(i));
-            }
-            const blob = new Blob([new Uint8Array(array)], { type });
-            resolve(new File([blob], file.name, { type }));
+          // if (currentPage < pdf.numPages) {
+          //   currentPage++;
+          //   height += marginHeight;
+          //   getPage();
+          // } else {
+          const blobBin = atob(canvas.toDataURL(type).split(",")[1]);
+          const array = [];
+          for (let i = 0; i < blobBin.length; i++) {
+            array.push(blobBin.charCodeAt(i));
           }
+          const blob = new Blob([new Uint8Array(array)], { type });
+          resolve(new File([blob], file.name, { type }));
+          // }
         }
       };
 

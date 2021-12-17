@@ -1,7 +1,7 @@
 /*!
- * FilePondPluginPdfConvert 1.0.0
- * Licensed under ISC, https://opensource.org/licenses/ISC/
- * Please visit undefined for details.
+ * FilePondPluginPdfConvert 1.0.3
+ * Licensed under MIT, https://opensource.org/licenses/MIT/
+ * Please visit https://github.com/alexandreDavid/filepond-plugin-pdf-convert#readme for details.
  */
 /* eslint-disable */
 
@@ -61,20 +61,19 @@ const pdfToImage = (file, type, marginHeight) => {
           height += canvas.height;
           if (width < canvas.width) width = canvas.width;
 
-          if (currentPage < pdf.numPages) {
-            currentPage++;
-            height += marginHeight;
-            getPage();
-          } else {
-            const canvas = mergePages();
-            const blobBin = atob(canvas.toDataURL(type).split(',')[1]);
-            const array = [];
-            for (let i = 0; i < blobBin.length; i++) {
-              array.push(blobBin.charCodeAt(i));
-            }
-            const blob = new Blob([new Uint8Array(array)], { type });
-            resolve(new File([blob], file.name, { type }));
+          // if (currentPage < pdf.numPages) {
+          //   currentPage++;
+          //   height += marginHeight;
+          //   getPage();
+          // } else {
+          const blobBin = atob(canvas.toDataURL(type).split(',')[1]);
+          const array = [];
+          for (let i = 0; i < blobBin.length; i++) {
+            array.push(blobBin.charCodeAt(i));
           }
+          const blob = new Blob([new Uint8Array(array)], { type });
+          resolve(new File([blob], file.name, { type }));
+          // }
         }
       };
 
